@@ -1,0 +1,50 @@
+<!-- chatbot/templates/chatbot/menu_with_chat.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu with Chat</title>
+    <link rel="stylesheet" href="{% static 'chatbot/css/style.css' %}">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="left-menu">
+        <div id="menu-container">
+            <h1>Menu</h1>
+            {% for item in menu_items %}
+            <div class="menu-item">
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="item-image">
+                <div class="item-details">
+                    <h2>{{ item.name }}</h2>
+                    <p>Price: ₹{{ item.price }}</p>
+                    {% if  item.stock  == 'Out of Stock' %}
+                    <p >Stock: <span style="color: red;">{{ item.stock }}</span></p>
+                    {% else %}
+                    <p >Stock: <span style="color: green;">{{ item.stock }}</span></p>
+                    {% endif %}
+                    <a href="#" class="add-to-cart" data-item-id="{{ item.id }}" data-item-name="{{ item.name }}" data-item-price="{{ item.price }}">Add to Cart</a>
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+    </div>
+    <div id="right-chat">
+        <div id="message-container">
+            <!-- Messages and cart items will be dynamically added here -->
+            <div class="message" id="seat-prompt">Chatbot: Please enter your seat number first.</div>
+        </div>
+        <div id="input-container">
+            <button class="place-order-button">Place Order</button>
+            <input type="text" id="message-input" placeholder="Type your seat number...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+    <script src="{% static 'chatbot/js/script.js' %}"></script>
+</body>
+</html>
